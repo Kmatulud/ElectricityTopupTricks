@@ -1,3 +1,5 @@
+const { format } = require("express/lib/response");
+
 // this is our
 module.exports = function(pool) {
 
@@ -22,8 +24,10 @@ module.exports = function(pool) {
 
 	// increase the meter balance for the meterId supplied
 	async function topupElectricity(meterId, units) {
-		const topup = await pool.query('update electricity_meter set balance=$1 where id=$1', [units],[meterId]);
-		return topup.rows;
+		const bal = await pool.query('select balance from electricity_meter');
+		const newBal = bal + units;
+		const topupAmnt = await pool.query('update electricity_meter set balance=$1 where id=$1', [newBal],[meterId]);
+		return topupAmnt.rows;
 	}
 	
 	// return the data for a given balance
@@ -31,6 +35,15 @@ module.exports = function(pool) {
 		const meterData = await pool.query('select * from electricity_meter where id=$1', [meterId]);
 		return meterData.rows;
 	
+	}
+
+	//Display Street names and balances grouped by Street Names
+	async function nameAndBalance(){
+		const nameAndBalance = await pool.query('select street.name, sum(electricity_meter.balance) from electricity_meter inner join street on electricity_meter.street_id = street.id group by street.name');
+
+		return nameAndBalance.rows;
+
+		// select(sum) from...
 	}
 
 	// decrease the meter balance for the meterId supplied
@@ -47,7 +60,8 @@ module.exports = function(pool) {
 		appliances,
 		topupElectricity,
 		meterData,
-		useElectricity
+		useElectricity,
+		nameAndBalance
 	}
 
 

@@ -46,7 +46,13 @@ app.get('/appliances', async function(req, res) {
 		appliances
 	})
 })
-app.get('/meter/:street_id', async function(req, res) {
+app.get('/street/balances', async function(req, res){
+	const balance = await electricityMeters.nameAndBalance();
+	res.render('street_balances', {
+		balance
+	})
+})
+app.get('/meters/:street_id', async function(req, res) {
 
 	// use the streetMeters method in the factory function...
 	// send the street id in as sent in by the URL parameter street_id - req.params.street_id
@@ -54,10 +60,11 @@ app.get('/meter/:street_id', async function(req, res) {
 	// create  template called street_meters.handlebars
 	// in there loop over all the meters and show them on the screen.
 	// show the street number and name and the meter balance
-
+	console.log(req.params.street_id);
+	const meters = await electricityMeters.streetMeters(req.params.street_id);
 	res.render('street_meters', {
 		meters
-	});
+	})
 });
 
 app.get('/meter/use/:meter_id', async function(req, res) {
@@ -69,6 +76,7 @@ app.get('/meter/use/:meter_id', async function(req, res) {
 });
 
 app.post('/meter/use/:meter_id', async function(req, res) {
+
 
 	// update the meter balance with the usage of the appliance selected.
 	res.render(`/meter/user/${req.params.meter_id}`);
