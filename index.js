@@ -8,11 +8,11 @@ const PORT =  process.env.PORT || 3017;
 
 const ElectricityMeters = require('./electricity-meters');
 
-const connectionString = process.env.DATABASE_URL || 'postgres://postgres:admin@localhost:5432/topups_db';
+const connectionString = process.env.DATABASE_URL || "postgres://jflgvlaykiztti:bd6e9b2986f57e9445790e42484f9a38c6c6e9ee36b97634e97d7651a3bb959a@ec2-34-203-91-150.compute-1.amazonaws.com:5432/d7p9oilcmevko";;
 
 const pool = new Pool({
     connectionString,
-	// ssl: { rejectUnauthorized: false},
+	ssl: { rejectUnauthorized: false}
 });
 
 // enable the req.body object - to allow us to use HTML forms
