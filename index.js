@@ -47,9 +47,9 @@ app.get('/appliances', async function(req, res) {
 	});
 });
 app.get('/streets/balances', async function(req, res){
-	const balance = await electricityMeters.nameAndBalance();
+	const meterBalance = await electricityMeters.nameAndBalance();
 	res.render('street_balances', {
-		balance
+		meterBalance
 	});
 });
 app.get('/meters/:street_id', async function(req, res) {
