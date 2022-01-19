@@ -7,8 +7,8 @@ node_js:
   - 12
 
 before_script:
-  - psql -c 'create database  topups_db;' -U postgres
-  - psql -U postgres -d avo_shopper -a -f ./sql/db.sql
+  - psql -c 'create database topups_db;' -U postgres
+  - psql -U postgres -d topups_db -a -f ./sql/db.sql
 
 services:
   - postgresql
