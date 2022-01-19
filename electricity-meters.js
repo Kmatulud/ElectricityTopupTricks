@@ -23,10 +23,9 @@ module.exports = function(pool) {
 	}
 
 	// increase the meter balance for the meterId supplied
-	async function topupElectricity(meterId, units, newBal) {
+	async function topupElectricity(meterId, units) {
 		const bal = await pool.query('select balance from electricity_meter');
-		newBal = bal + units;
-		const topupAmnt = await pool.query('update electricity_meter set balance=$1 where id=$1', [newBal],[meterId]);
+		const topupAmnt = await pool.query('update electricity_meter set balance=$1 where id=$1', [units],[meterId]);
 		return topupAmnt.rows;
 	}
 	
