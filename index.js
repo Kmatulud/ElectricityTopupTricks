@@ -12,7 +12,7 @@ const connectionString = process.env.DATABASE_URL || "postgres://icavisldfjpuph:
 
 const pool = new Pool({
     connectionString,
-	ssl: { rejectUnauthorized: false}
+	ssl: { rejectUnauthorized: true}
 });
 
 // enable the req.body object - to allow us to use HTML forms
