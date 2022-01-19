@@ -40,7 +40,12 @@ app.get('/streets', async function(req, res) {
 		streets
 	});
 });
-
+app.get('/appliances', async function(req, res) {
+	const appliances = await electricityMeters.appliances();
+	res.render('appliances', {
+		appliances
+	})
+})
 app.get('/meter/:street_id', async function(req, res) {
 
 	// use the streetMeters method in the factory function...
