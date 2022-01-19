@@ -42,8 +42,6 @@ module.exports = function(pool) {
 		const nameAndBalance = await pool.query('select street.name, sum(electricity_meter.balance) from electricity_meter inner join street on electricity_meter.street_id = street.id group by street.name');
 
 		return nameAndBalance.rows;
-
-		// select(sum) from...
 	}
 
 	// decrease the meter balance for the meterId supplied

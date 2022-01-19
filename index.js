@@ -44,14 +44,14 @@ app.get('/appliances', async function(req, res) {
 	const appliances = await electricityMeters.appliances();
 	res.render('appliances', {
 		appliances
-	})
-})
-app.get('/street/balances', async function(req, res){
+	});
+});
+app.get('/streets/balances', async function(req, res){
 	const balance = await electricityMeters.nameAndBalance();
 	res.render('street_balances', {
 		balance
-	})
-})
+	});
+});
 app.get('/meters/:street_id', async function(req, res) {
 
 	// use the streetMeters method in the factory function...
@@ -61,13 +61,14 @@ app.get('/meters/:street_id', async function(req, res) {
 	// in there loop over all the meters and show them on the screen.
 	// show the street number and name and the meter balance
 	console.log(req.params.street_id);
-	const meters = await electricityMeters.streetMeters(req.params.street_id);
+	const street_meters = await electricityMeters.streetMeters(req.params.street_id);
 	res.render('street_meters', {
-		meters
-	})
+		street_meters
+	});
 });
 
 app.get('/meter/use/:meter_id', async function(req, res) {
+
 
 	// show the current meter balance and select the appliance you are using electricity for
 	res.render('use_electicity', {
@@ -75,11 +76,20 @@ app.get('/meter/use/:meter_id', async function(req, res) {
 	});
 });
 
+app.get('/buy-electricity', async function(req, res){
+	//Display the buying page
+	res.render('topup');
+
+
+})
+
 app.post('/meter/use/:meter_id', async function(req, res) {
 
+	const topupElectricity = await electricityMeters.topupElectricity();
 
 	// update the meter balance with the usage of the appliance selected.
-	res.render(`/meter/user/${req.params.meter_id}`);
+	res.render(`/meter/user/${req.params.meter_id}`, topupElectricity);
+	res.redirect('/buy-electricity');
 
 });
 
