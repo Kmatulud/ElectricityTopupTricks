@@ -15,7 +15,7 @@ create table street (
 
 create table electricity_meter (
 
-	id serial primary key,
+	id serial primary key, --Use as meter number
 	street_number text,
 	street_id int,
 	balance decimal(8,2),
