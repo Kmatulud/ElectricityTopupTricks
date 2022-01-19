@@ -1,0 +1,21 @@
+<h2>Purchase Complete</h2>
+
+<p>You have successfully completed your purchase</p>
+
+<table>
+{{#each topupElectricity}}
+<tr>
+	<td>
+        <strong>Meter Number :</strong> {{id}}
+	</td><br><br>
+    <td>
+        <strong>New Balance :</strong> {{balance}}
+	</td><br><br>
+</tr>
+{{/each}}
+</table> <br><br>
+
+<a href="/streets">Return Home</a>
+
+
+
