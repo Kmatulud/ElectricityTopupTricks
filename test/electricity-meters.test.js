@@ -3,7 +3,7 @@ const pg = require('pg');
 const Pool = pg.Pool;
 const ElectricityMeters = require('../electricity-meters');
 
-const connectionString = process.env.DATABASE_URL || 'postgresql://topup:topup00@localhost:5432/topups';
+const connectionString = process.env.DATABASE_URL || 'postgres://postgres:admin@localhost:5432/topups_db';
 
 const pool = new Pool({
     connectionString  
